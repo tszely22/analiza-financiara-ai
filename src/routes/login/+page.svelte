@@ -24,7 +24,7 @@
         if (isLogin) {
             try {
                 const response = await fetch(
-                    "http://analiza-financiara.great-site.net/entitati/login",
+                    "https://analiza-financiara.great-site.net/entitati/login",
                     {
                         method: "POST",
                         headers: {
@@ -67,7 +67,7 @@
             }
             try {
                 const response = await fetch(
-                    "http://analiza-financiara.great-site.net/entitati/login",
+                    "https://analiza-financiara.great-site.net/entitati/login",
                     {
                         method: "POST",
                         headers: {
@@ -109,7 +109,7 @@
 
             try {
                 const response = await fetch(
-                    "http://analiza-financiara.great-site.net/entitati/users/add",
+                    "https://analiza-financiara.great-site.net/entitati/users/add",
                     {
                         method: "POST",
                         headers: {

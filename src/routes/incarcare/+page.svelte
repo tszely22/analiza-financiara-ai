@@ -85,7 +85,7 @@
             }
 
             const response = await fetch(
-                "http://analiza-financiara.great-site.net/entitati/results/add",
+                "https://analiza-financiara.great-site.net/entitati/results/add",
                 {
                     method: "POST",
                     body: formData,
@@ -724,7 +724,7 @@
 
         try {
             const response = await fetch(
-                "http://analiza-financiara.great-site.net/entitati/openai",
+                "https://analiza-financiara.great-site.net/entitati/openai",
                 {
                     method: "POST",
                     headers: {
@@ -762,7 +762,7 @@
 
         try {
             const response = await fetch(
-                "http://analiza-financiara.great-site.net/entitati/users/email",
+                "https://analiza-financiara.great-site.net/entitati/users/email",
                 {
                     method: "POST",
                     headers: {
