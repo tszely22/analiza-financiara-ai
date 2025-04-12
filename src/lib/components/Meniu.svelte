@@ -124,7 +124,7 @@
         >
       </li>
 
-      {#if isLoggedIn}
+      {#if loggedIn}
         <li>
           <button
             on:click={() => {
