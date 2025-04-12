@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body {
+    background-color: #F9FAFB;
+}
+html {
+    scroll-behavior:smooth;
+  }
+
+  /* Prevent oklch or Tailwind's dynamic color generation */
+.print-pdf-fix * {
+    border-color: #000 !important;
+    box-shadow: none !important;
+  }
