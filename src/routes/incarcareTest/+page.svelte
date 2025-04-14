@@ -449,6 +449,12 @@
     // 3. Echilibrul financiar
     // FR, NFR, TN
 
+    function allFieldsFilled(data) {
+        return Object.values(data).every((yearData) =>
+            Object.values(yearData).every((val) => val !== "" && val !== null),
+        );
+    }
+
     function calculateIndicators() {
         if (
             !allFieldsFilled(balanceSheetData) ||
@@ -526,12 +532,13 @@
                     "Cheltuieli cu alte impozite, taxe și vărsăminte asimilate"
                 ][year] || 0;
 
-
             let profitNet =
                 +profitLossData["Profit net al exercițiului financiar"][year] ||
                 0;
             let pierdereNeta =
-                +profitLossData["Pierdere netă al exercițiului financiar"][year] || 0;
+                +profitLossData["Pierdere netă al exercițiului financiar"][
+                    year
+                ] || 0;
             let profitFinanciar =
                 +profitLossData["Profit financiar"][year] || 0;
             let pierdereFinanciara =
@@ -585,8 +592,14 @@
             indicatori.valoareAdaugata[year] = VA_;
             indicatori.execedentBrutExploatare[year] = EBE_;
 
-            indicatori.rataRentabilitatiiEconomice[year] = ROA(profitNet, totalAct);
-            indicatori.rataRentabilitatiiFinanciare[year] = ROE(profitNet, capitaluriProprii);
+            indicatori.rataRentabilitatiiEconomice[year] = ROA(
+                profitNet,
+                totalAct,
+            );
+            indicatori.rataRentabilitatiiFinanciare[year] = ROE(
+                profitNet,
+                capitaluriProprii,
+            );
             indicatori.rataRentabilitateResurseConsumate[year] =
                 rataRentabilitateResurseConsumate(profitExploatare, CA);
             indicatori.rataActiveImobilizate[year] = rataActiveImobilizate(
@@ -693,7 +706,7 @@
         profitBrut: {},
         pierdereBruta: {},
         profitNet: {},
-        pierdereNeta: {}
+        pierdereNeta: {},
     };
 
     function preloadDummyData() {
