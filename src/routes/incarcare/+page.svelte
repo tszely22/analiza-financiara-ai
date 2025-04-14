@@ -85,7 +85,7 @@
             }
 
             const response = await fetch(
-                "https://analiza-financiara-ai.api-hub.xyz/entitati/results/add",
+                "https://analiza-financiara-ai.api-hub.xyz/api/entitati/results/add",
                 {
                     method: "POST",
                     body: formData,
@@ -724,7 +724,7 @@
 
         try {
             const response = await fetch(
-                "https://analiza-financiara-ai.api-hub.xyz/entitati/openai",
+                "https://analiza-financiara-ai.api-hub.xyz/api/entitati/openai",
                 {
                     method: "POST",
                     headers: {
@@ -762,7 +762,7 @@
 
         try {
             const response = await fetch(
-                "https://analiza-financiara-ai.api-hub.xyz/entitati/users/email",
+                "https://analiza-financiara-ai.api-hub.xyz/api/entitati/users/email",
                 {
                     method: "POST",
                     headers: {

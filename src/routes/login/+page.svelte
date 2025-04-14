@@ -24,7 +24,7 @@
         if (isLogin) {
             try {
                 const response = await fetch(
-                    "https://analiza-financiara-ai.api-hub.xyz/entitati/login",
+                    "https://analiza-financiara-ai.api-hub.xyz/api/entitati/login",
                     {
                         method: "POST",
                         headers: {
@@ -67,7 +67,7 @@
             }
             try {
                 const response = await fetch(
-                    "https://analiza-financiara-ai.api-hub.xyz/entitati/login",
+                    "https://analiza-financiara-ai.api-hub.xyz/api/entitati/login",
                     {
                         method: "POST",
                         headers: {
@@ -109,7 +109,7 @@
 
             try {
                 const response = await fetch(
-                    "https://analiza-financiara-ai.api-hub.xyz/entitati/users/add",
+                    "https://analiza-financiara-ai.api-hub.xyz/api/entitati/users/add",
                     {
                         method: "POST",
                         headers: {
