@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
     import IndicatorChart from "$lib/components/IndicatorChart.svelte"; // adjust path if needed
-    import Cookies from "js-cookie";  // Add this import if not already present
+    import Cookies from "js-cookie"; // Add this import if not already present
 
     let pdfGenerating = false;
 
@@ -635,7 +635,7 @@
         EBE: {},
         ROA: {},
         ROE: {},
-        rataRentabilitateResurseConsumate: {},
+        "Rata Rentabilitate Resurse Consumate": {},
         rataActiveImobilizate: {},
         rataActiveCirculante: {},
         rataStocurilor: {},
@@ -751,7 +751,7 @@
     }
 
     async function getUserDetails() {
-        const email = Cookies.get("userEmail"); 
+        const email = Cookies.get("userEmail");
 
         if (!email) {
             console.error("❌ Email not found in localStorage.");
@@ -819,8 +819,8 @@
         <div
             class="text-white text-lg font-semibold animate-pulse flex gap-12 items-center"
         >
-            Se generează diagnosticul financiar in format PDF și se
-            pregătește descărcarea...
+            Se generează diagnosticul financiar in format PDF și se pregătește
+            descărcarea...
             <div
                 class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"
             ></div>
