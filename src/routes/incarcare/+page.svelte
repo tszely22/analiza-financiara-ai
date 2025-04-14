@@ -530,9 +530,7 @@
                 +profitLossData["Profit net al exercițiului financiar"][year] ||
                 0;
             let pierdereNeta =
-                +profitLossData["Pierdere netă al exercițiului financiar"][
-                    year
-                ] || 0;
+                +profitLossData["Pierdere netă al exercițiului financiar"][year] || 0;
             let profitFinanciar =
                 +profitLossData["Profit financiar"][year] || 0;
             let pierdereFinanciara =
@@ -543,7 +541,7 @@
             let profitExploatare =
                 +profitLossData["Profit din exploatare "][year] || 0;
             let pierdereExploatare =
-                +profitLossData["Pierdere din exploatare "][year] || 0;
+                +profitLossData["Pierdere din exploatare"][year] || 0;
             let CA = +profitLossData["Cifra de afaceri netă"][year] || 0;
 
             // 🔹 Calculați componentele derivate
@@ -1017,7 +1015,7 @@
                     mode="time"
                 />
                 <IndicatorChart
-                    label="Excedent Brut din Exploatare (execedentBrutExploatare)"
+                    label="Excedent Brut din Exploatare (EBE)"
                     data={indicatori.execedentBrutExploatare}
                     {years}
                     mode="time"
