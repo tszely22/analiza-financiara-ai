@@ -450,6 +450,16 @@
     // FR, NFR, TN
 
     function calculateIndicators() {
+        if (
+            !allFieldsFilled(balanceSheetData) ||
+            !allFieldsFilled(profitLossData)
+        ) {
+            alert(
+                "Te rugăm să completezi toate câmpurile înainte de a continua.",
+            );
+            return false;
+        }
+
         for (let year of years) {
             // 🔹 Date din bilanț
             let ai = +balanceSheetData["ACTIVE IMOBILIZATE - TOTAL"][year] || 0;
@@ -515,11 +525,24 @@
                 +profitLossData[
                     "Cheltuieli cu alte impozite, taxe și vărsăminte asimilate"
                 ][year] || 0;
+
+
             let profitNet =
                 +profitLossData["Profit net al exercițiului financiar"][year] ||
                 0;
+            let pierdereNeta =
+                +profitLossData["Pierdere netă al exercițiului financiar"][year] || 0;
+            let profitFinanciar =
+                +profitLossData["Profit financiar"][year] || 0;
+            let pierdereFinanciara =
+                +profitLossData["Pierdere financiară"][year] || 0;
+            let profitBrut = +profitLossData["Profit brut"][year] || 0;
+            let pierdereBruta = +profitLossData["Pierdere brută"][year] || 0;
+
             let profitExploatare =
                 +profitLossData["Profit din exploatare "][year] || 0;
+            let pierdereExploatare =
+                +profitLossData["Pierdere din exploatare"][year] || 0;
             let CA = +profitLossData["Cifra de afaceri netă"][year] || 0;
 
             // 🔹 Calculați componentele derivate
@@ -556,14 +579,14 @@
             );
 
             // 🔹 Salvează rezultatele în indicatori
-            indicatori.CA[year] = CA;
+            indicatori.cifraAfaceri[year] = CA;
             indicatori.PEX[year] = PEX_;
             indicatori.MC[year] = MC_;
-            indicatori.VA[year] = VA_;
-            indicatori.EBE[year] = EBE_;
+            indicatori.valoareAdaugata[year] = VA_;
+            indicatori.execedentBrutExploatare[year] = EBE_;
 
-            indicatori.ROA[year] = ROA(profitNet, totalAct);
-            indicatori.ROE[year] = ROE(profitNet, capitaluriProprii);
+            indicatori.rataRentabilitatiiEconomice[year] = ROA(profitNet, totalAct);
+            indicatori.rataRentabilitatiiFinanciare[year] = ROE(profitNet, capitaluriProprii);
             indicatori.rataRentabilitateResurseConsumate[year] =
                 rataRentabilitateResurseConsumate(profitExploatare, CA);
             indicatori.rataActiveImobilizate[year] = rataActiveImobilizate(
@@ -622,20 +645,30 @@
             indicatori.fondRulment[year] = fr;
             indicatori.necesarFondRulment[year] = nfr;
             indicatori.trezorerieNet[year] = trezorerieNet(fr, nfr);
+
+            indicatori.profitExploatare[year] = profitExploatare;
+            indicatori.pierdereExploatare[year] = pierdereExploatare;
+            indicatori.profitFinanciar[year] = profitFinanciar;
+            indicatori.pierdereFinanciara[year] = pierdereFinanciara;
+            indicatori.profitBrut[year] = profitBrut;
+            indicatori.pierdereBruta[year] = pierdereBruta;
+            indicatori.profitNet[year] = profitNet;
+            indicatori.pierdereNeta[year] = pierdereNeta;
         }
 
         console.log("Indicatori calculați:", indicatori);
+        return true; // ✅ All good
     }
 
     let indicatori = {
-        CA: {},
+        cifraAfaceri: {},
         PEX: {},
         MC: {},
-        VA: {},
-        EBE: {},
-        ROA: {},
-        ROE: {},
-        "Rata Rentabilitate Resurse Consumate": {},
+        valoareAdaugata: {},
+        execedentBrutExploatare: {},
+        rataRentabilitatiiEconomice: {},
+        rataRentabilitatiiFinanciare: {},
+        rataRentabilitateResurseConsumate: {},
         rataActiveImobilizate: {},
         rataActiveCirculante: {},
         rataStocurilor: {},
@@ -653,6 +686,14 @@
         fondRulment: {},
         necesarFondRulment: {},
         trezorerieNet: {},
+        profitExploatare: {},
+        pierdereExploatare: {},
+        profitFinanciar: {},
+        pierdereFinanciara: {},
+        profitBrut: {},
+        pierdereBruta: {},
+        profitNet: {},
+        pierdereNeta: {}
     };
 
     function preloadDummyData() {
@@ -958,41 +999,41 @@
     </div>
 
     {#if aiResponse}
-        {#if indicatori?.CA && Object.values(indicatori.CA).some((val) => val !== 0 && val !== null && val !== "")}
+        {#if indicatori?.cifraAfaceri && Object.values(indicatori.cifraAfaceri).some((val) => val !== 0 && val !== null && val !== "")}
             <h2 class="text-2xl font-semibold mt-12 mb-8 text-center">
                 Grafice Indicatori
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <IndicatorChart
                     label="Cifra de afaceri"
-                    data={indicatori.CA}
+                    data={indicatori.cifraAfaceri}
                     {years}
                     type="line"
                     mode="time"
                 />
                 <IndicatorChart
-                    label="Valoarea Adăugată (VA)"
-                    data={indicatori.VA}
+                    label="Valoarea Adăugată (valoareAdaugata)"
+                    data={indicatori.valoareAdaugata}
                     {years}
                     mode="time"
                 />
                 <IndicatorChart
                     label="Excedent Brut din Exploatare (EBE)"
-                    data={indicatori.EBE}
+                    data={indicatori.execedentBrutExploatare}
                     {years}
                     mode="time"
                 />
 
                 <IndicatorChart
                     label="ROA"
-                    data={indicatori.ROA}
+                    data={indicatori.rataRentabilitatiiEconomice}
                     {years}
                     type="line"
                     mode="time"
                 />
                 <IndicatorChart
                     label="ROE"
-                    data={indicatori.ROE}
+                    data={indicatori.rataRentabilitatiiFinanciare}
                     {years}
                     type="line"
                     mode="time"
