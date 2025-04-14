@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import IndicatorChart from "$lib/components/IndicatorChart.svelte"; // adjust path if needed
+    import Cookies from "js-cookie";  // Add this import if not already present
 
     let pdfGenerating = false;
 
@@ -750,7 +751,7 @@
     }
 
     async function getUserDetails() {
-        const email = localStorage.getItem("userEmail");
+        const email = Cookies.get("userEmail"); 
 
         if (!email) {
             console.error("❌ Email not found in localStorage.");
