@@ -40,9 +40,10 @@
                 const result = await response.json();
 
                 if (response.ok) {
+                    // Set the cookies
                     Cookies.set("token", result.token, {
-                        secure: true,
-                        sameSite: "strict",
+                        secure: true, // Ensures the cookie is only sent over HTTPS
+                        sameSite: "strict", // Prevents the cookie from being sent in cross-site requests
                         path: "/",
                     });
                     Cookies.set("tokenExpires", result.expires, {
@@ -63,42 +64,6 @@
                 }
             } catch (error) {
                 console.error("Eroare la autentificare:", error);
-                alert("Eroare la conectare.");
-            }
-            try {
-                const response = await fetch(
-                    "https://analiza-financiara-ai.api-hub.xyz/api/entitati/login",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ email, password }),
-                    },
-                );
-
-                const raw = await response.text(); // 🟡 get raw response
-                console.log("Raw login response:", raw);
-
-                let result;
-                try {
-                    result = JSON.parse(raw);
-                } catch (err) {
-                    throw new Error("Invalid JSON received from server.");
-                }
-
-                if (response.ok) {
-                    localStorage.setItem("token", result.token);
-                    localStorage.setItem("tokenExpires", result.expires);
-                    localStorage.setItem("userEmail", result.user.email);
-
-                    console.log("✅ Token stored successfully");
-                    goto("/incarcare");
-                } else {
-                    alert(result.message || "Autentificare eșuată");
-                }
-            } catch (error) {
-                console.error("❌ Eroare la autentificare:", error);
                 alert("Eroare la conectare.");
             }
         } else {
@@ -135,8 +100,23 @@
                     const result = JSON.parse(text);
 
                     if (response.ok) {
-                        localStorage.setItem("token", result.token);
-                        localStorage.setItem("tokenExpires", result.expires);
+                        // Set cookies instead of localStorage
+                        Cookies.set("token", result.token, {
+                            secure: true,
+                            sameSite: "strict",
+                            path: "/",
+                        });
+                        Cookies.set("tokenExpires", result.expires, {
+                            secure: true,
+                            sameSite: "strict",
+                            path: "/",
+                        });
+                        Cookies.set("userEmail", result.user.email, {
+                            secure: true,
+                            sameSite: "strict",
+                            path: "/",
+                        });
+
                         goto("/incarcare");
                     } else {
                         alert(result.message || "Eroare necunoscută.");
@@ -152,6 +132,7 @@
         }
     };
 </script>
+
 
 <div
     class="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-26"
