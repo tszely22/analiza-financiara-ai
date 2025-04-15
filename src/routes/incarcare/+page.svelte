@@ -746,8 +746,34 @@
             }
         }
 
+// Get user details first
+const user = await getUserDetails();
+        if (!user) {
+            console.error("❌ Nu s-au putut obține detaliile utilizatorului.");
+            return;
+        }
+
+        // Prepare company details as part of the string (but not send it in the request)
+        const companyDetails = `
+        Company Name: ${user.nume_firma}
+        CUI: ${user.cui}
+        CAEN Code: ${user.cod_caen}
+        Registration Year: ${user.an_infiintare}
+        Location: ${user.localitate_judet}
+        Representative: ${user.nume_reprezentant}
+    `;
+
+        // Combine company details and financial data in one string (for reference)
+        const combinedData = companyDetails + "\n" + financialData.join("\n");
+
+        console.log(
+            "Date transmise catre AI (doar indicatori financiari): ",
+            financialData.join("\n"),
+        );
+
+        // Prepare the payload with only financial data for the AI
         const payload = {
-            financialData: financialData.join("\n"),
+            financialData: combinedData,
         };
 
         console.log("Date transmise catre AI: ", payload);
