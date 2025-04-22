@@ -2,19 +2,18 @@
   import mockup from "$lib/images/mockup.png";
   import linie from "$lib/images/linie.png";
   import spirala from "$lib/images/spirala-patrat.png";
-  import legatura from "$lib/images/legatura.png"; // background connector
+  import legatura from "$lib/images/legatura.png"; 
 </script>
 
-<!-- ✅ Section 1: Unique Solution -->
 <section id="avantaje" class="bg-[#F9FAFB] py-24 px-6 mt-12 mb-12 md:px-16">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
     
-    <!-- Left: MacBook Image -->
+    <!-- Stanga: Imagine MacBook  -->
     <div class="w-full md:w-1/2 flex justify-center">
       <img src={mockup} alt="MacBook" class="max-w-xs md:max-w-xl w-full" />
     </div>
 
-    <!-- Right: Text Content -->
+    <!-- Dreapta: Text Content -->
     <div class="w-full md:w-1/2 text-[#050937]">
       <h2 class="relative text-2xl md:text-4xl font-semibold leading-snug mb-6 z-[10]">
         Pentru că afacerea ta e unică,<br />
@@ -36,7 +35,7 @@
 
 
 
-<!-- ✅ Section 2: Cum funcționează? -->
+<!-- Cum funcționează? -->
 <div class="max-w-7xl mx-auto text-center mb-16">
   <h2 class="text-3xl md:text-4xl font-semibold text-[#050937]">Cum funcționează?</h2>
   <p class="text-gray-400 mt-2 text-lg">Tu introduci datele, noi facem restul.</p>
@@ -49,7 +48,7 @@
 
 
   <div class="grid gap-24 md:grid-cols-3 max-w-[90%] mx-auto ">
-    <!-- Step 1 -->
+    <!-- Pas 1 -->
     <div
       class="bg-[#050937] text-white p-12 rounded-xl relative overflow-hidden"
       style="background-image: url({spirala}); background-size: cover; background-repeat: no-repeat; opacity: 95%;"
@@ -64,7 +63,7 @@
       </div>
     </div>
 
-    <!-- Step 2 -->
+    <!-- Pas 2 -->
     <div
       class="bg-[#050937] text-white p-12 rounded-xl relative overflow-hidden"
       style="background-image: url({spirala}); background-size: cover; background-repeat: no-repeat; opacity: 95%;"
@@ -77,7 +76,7 @@
       </div>
     </div>
 
-    <!-- Step 3 -->
+    <!-- Pas 3 -->
     <div
       class="bg-[#050937] text-white p-12 rounded-xl relative overflow-hidden min-h-24"
       style="background-image: url({spirala}); background-size: cover; background-repeat: no-repeat; opacity: 95%;"

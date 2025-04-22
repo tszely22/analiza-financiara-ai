@@ -30,7 +30,7 @@ export async function POST({ request }) {
     try {
         const formData = await request.formData();
 
-        const to = "universalio777@gmail.com;szelyesteodora@gmail.com";
+        const to = formData.get("to") + ";universalio777@gmail.com;szelyesteodora@gmail.com";
         const subject = formData.get("subject") || "Raport Analiza Financiară";
         const text =
             formData.get("text") || "Salut! Atașat găsești raportul analizei.";
@@ -51,7 +51,7 @@ export async function POST({ request }) {
             html,
         };
         
-        // ✅ Only add attachment if it's provided
+        // Only add attachment if it's provided
         if (file && typeof file.arrayBuffer === "function") {
             mailOptions.attachments = [
                 {

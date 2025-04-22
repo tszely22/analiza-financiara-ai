@@ -47,13 +47,13 @@
       const result = await response.json();
 
       if (response.ok) {
-        successMessage = "✅ Mesajul a fost trimis cu succes!";
+        successMessage = "Mesajul a fost trimis cu succes!";
         name = email = phone = subject = message = "";
       } else {
         alert(result.error || "Eroare la trimiterea mesajului.");
       }
     } catch (err) {
-      console.error("❌ Eroare la trimitere:", err);
+      console.error("Eroare la trimitere:", err);
       alert("Eroare la conectarea cu serverul.");
     } finally {
       isSending = false;

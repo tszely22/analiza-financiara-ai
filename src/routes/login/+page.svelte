@@ -42,8 +42,8 @@
                 if (response.ok) {
                     // Set the cookies
                     Cookies.set("token", result.token, {
-                        secure: true, // Ensures the cookie is only sent over HTTPS
-                        sameSite: "strict", // Prevents the cookie from being sent in cross-site requests
+                        secure: true, 
+                        sameSite: "strict", 
                         path: "/",
                     });
                     Cookies.set("tokenExpires", result.expires, {
@@ -57,7 +57,7 @@
                         path: "/",
                     });
 
-                    isLoggedIn.setLoggedIn(); // ✅ update store
+                    isLoggedIn.setLoggedIn();
                     goto("/incarcare");
                 } else {
                     alert(result.message || "Autentificare eșuată");
@@ -93,8 +93,8 @@
                     },
                 );
 
-                const text = await response.text(); // First get raw response
-                console.log("Raw response:", text);
+                const text = await response.text(); 
+                console.log("Raspuns:", text);
 
                 try {
                     const result = JSON.parse(text);

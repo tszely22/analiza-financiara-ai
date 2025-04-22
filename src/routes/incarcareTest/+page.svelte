@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
-    import IndicatorChart from "$lib/components/IndicatorChart.svelte"; // adjust path if needed
-    import Cookies from "js-cookie"; // Add this import if not already present
+    import IndicatorChart from "$lib/components/IndicatorChart.svelte"; 
+    import Cookies from "js-cookie";
 
     let pdfGenerating = false;
 
@@ -35,13 +35,13 @@
 
             const element = document.getElementById("pdf-report");
             if (!element) {
-                console.error("❌ Elementul PDF nu a fost găsit.");
+                console.error("Elementul PDF nu a fost găsit.");
                 return null;
             }
 
             const opt = {
                 margin: 0.5,
-                filename: "raport-analiza-financiara.pdf", // optional if you're not saving
+                filename: "raport-analiza-financiara.pdf",
                 image: { type: "jpeg", quality: 0.98 },
                 html2canvas: {
                     scale: 2,
@@ -58,7 +58,7 @@
 
             return blob;
         } catch (error) {
-            console.error("💥 Eroare la generarea PDF-ului:", error);
+            console.error("Eroare la generarea PDF-ului:", error);
             return null;
         } finally {
             pdfGenerating = false;
@@ -94,13 +94,11 @@
             );
 
             const result = await response.json();
-            console.log("✅ Upload result:", result);
+            console.log("Rezultate:", result);
 
-            // ✅ Now create a clean FormData just for sending email
             const emailForm = new FormData();
 
-            // formData.append("to", user.email);
-            emailForm.append("to", "universalio777@gmail.com");
+            emailForm.append("to", user.email);
             emailForm.append("fromDisplayName", "AFA");
             emailForm.append("subject", "Raportul Analizei Financiare");
             emailForm.append(
@@ -128,10 +126,10 @@
             });
 
             const emailSendResult = await responseEmail.json();
-            console.log("📧 Email trimis:", emailSendResult);
+            console.log("Email trimis:", emailSendResult);
             finishedProcess = true;
         } catch (error) {
-            console.error("💥 Eroare la generarea/încărcarea PDF-ului:", error);
+            console.error("Eroare la generarea/încărcarea PDF-ului:", error);
         }
     }
 
@@ -467,7 +465,7 @@
         }
 
         for (let year of years) {
-            // 🔹 Date din bilanț
+            // Date din bilanț
             let ai = +balanceSheetData["ACTIVE IMOBILIZATE - TOTAL"][year] || 0;
             let ac = +balanceSheetData["ACTIVE CIRCULANTE - TOTAL"][year] || 0;
             let chAv = +balanceSheetData["CHELTUIELI ÎN AVANS"][year] || 0;
@@ -495,7 +493,7 @@
             let capitaluriProprii =
                 +balanceSheetData["CAPITALURI PROPRII"][year] || 0;
 
-            // 🔹 Date din contul de profit și pierdere
+            // Date din contul de profit și pierdere
             let prodVanduta = +profitLossData["Producţia vândută"][year] || 0;
             let soldC = +profitLossData["  Sold C"][year] || 0;
             let soldD = +profitLossData["  Sold D"][year] || 0;
@@ -552,7 +550,7 @@
                 +profitLossData["Pierdere din exploatare"][year] || 0;
             let CA = +profitLossData["Cifra de afaceri netă"][year] || 0;
 
-            // 🔹 Calculați componentele derivate
+            // Calculați componentele derivate
             const totalAct = totalActive(ai, ac, chAv);
             const datoriiTot = datoriiTotale(datoriiLungi, datoriiCurente);
             const totalPas = totalPasiv(
@@ -585,7 +583,7 @@
                 alteImpozite,
             );
 
-            // 🔹 Salvează rezultatele în indicatori
+            // Salvează rezultatele în indicatori
             indicatori.cifraAfaceri[year] = CA;
             indicatori.PEX[year] = PEX_;
             indicatori.MC[year] = MC_;
@@ -670,7 +668,7 @@
         }
 
         console.log("Indicatori calculați:", indicatori);
-        return true; // ✅ All good
+        return true;
     }
 
     let indicatori = {
@@ -777,7 +775,7 @@
         // Get user details first
         const user = await getUserDetails();
         if (!user) {
-            console.error("❌ Nu s-au putut obține detaliile utilizatorului.");
+            console.error("Nu s-au putut obține detaliile utilizatorului.");
             return;
         }
 
@@ -834,7 +832,7 @@
         const email = Cookies.get("userEmail");
 
         if (!email) {
-            console.error("❌ Email not found in localStorage.");
+            console.error("Email not found in localStorage.");
             return null;
         }
 
@@ -851,26 +849,25 @@
             );
 
             const result = await response.json();
-            console.log("User data results:", result);
+            console.log("Date despre user:", result);
 
-            // ✅ Extract user from result.data[0]
             if (
                 response.ok &&
                 Array.isArray(result.data) &&
                 result.data.length > 0
             ) {
                 const user = result.data[0];
-                console.log("📄 Detalii utilizator:", user);
+                console.log("Detalii utilizator:", user);
                 return user;
             } else {
                 console.error(
-                    "❌ Utilizatorul nu a fost găsit:",
+                    "Utilizatorul nu a fost găsit:",
                     result.message,
                 );
                 return null;
             }
         } catch (err) {
-            console.error("❌ Eroare la interogarea utilizatorului:", err);
+            console.error("Eroare la interogarea utilizatorului:", err);
             return null;
         }
     }
@@ -1023,10 +1020,10 @@
         <button
             on:click={async () => {
                 aiLoading = true;
-                preloadDummyData(); // for now; remove this line later
+                preloadDummyData(); 
                 calculateIndicators();
                 await sendIndicatorsToAI();
-                await generatePDFBlobAndSend(); // 👈 this handles the save-to-DB logic
+                await generatePDFBlobAndSend(); 
                 aiLoading = false;
             }}
             class="mb-8 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition no-print"

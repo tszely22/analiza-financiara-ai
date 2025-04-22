@@ -6,7 +6,6 @@
   import Spirala from "$lib/components/Spirala.svelte";
 </script>
 
-<!-- +page.svelte or any .svelte file -->
 <svelte:head>
   <title>Analiza Financiară AI</title>
   <meta name="description" content="Transformă datele financiare în decizii strategice." />

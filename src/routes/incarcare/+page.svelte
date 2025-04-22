@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-    import IndicatorChart from "$lib/components/IndicatorChart.svelte"; // adjust path if needed
+    import IndicatorChart from "$lib/components/IndicatorChart.svelte";
 
     let pdfGenerating = false;
 
@@ -34,13 +34,13 @@
 
             const element = document.getElementById("pdf-report");
             if (!element) {
-                console.error("❌ Elementul PDF nu a fost găsit.");
+                console.error("Elementul PDF nu a fost găsit.");
                 return null;
             }
 
             const opt = {
                 margin: 0.5,
-                filename: "raport-analiza-financiara.pdf", // optional if you're not saving
+                filename: "raport-analiza-financiara.pdf",
                 image: { type: "jpeg", quality: 0.98 },
                 html2canvas: {
                     scale: 2,
@@ -57,7 +57,7 @@
 
             return blob;
         } catch (error) {
-            console.error("💥 Eroare la generarea PDF-ului:", error);
+            console.error("Eroare la generarea PDF-ului:", error);
             return null;
         } finally {
             pdfGenerating = false;
@@ -93,13 +93,12 @@
             );
 
             const result = await response.json();
-            console.log("✅ Upload result:", result);
+            console.log("Upload result:", result);
 
-            // ✅ Now create a clean FormData just for sending email
+            // Now create a clean FormData just for sending email
             const emailForm = new FormData();
 
-            // formData.append("to", user.email);
-            emailForm.append("to", "universalio777@gmail.com");
+            emailForm.append("to", user.email);
             emailForm.append("fromDisplayName", "AFA");
             emailForm.append("subject", "Raportul Analizei Financiare");
             emailForm.append(
@@ -127,10 +126,10 @@
             });
 
             const emailSendResult = await responseEmail.json();
-            console.log("📧 Email trimis:", emailSendResult);
+            console.log("Email trimis:", emailSendResult);
             finishedProcess = true;
         } catch (error) {
-            console.error("💥 Eroare la generarea/încărcarea PDF-ului:", error);
+            console.error("Eroare la generarea/încărcarea PDF-ului:", error);
         }
     }
 
@@ -460,7 +459,7 @@
         }
 
         for (let year of years) {
-            // 🔹 Date din bilanț
+            // Date din bilanț
             let ai = +balanceSheetData["ACTIVE IMOBILIZATE - TOTAL"][year] || 0;
             let ac = +balanceSheetData["ACTIVE CIRCULANTE - TOTAL"][year] || 0;
             let chAv = +balanceSheetData["CHELTUIELI ÎN AVANS"][year] || 0;
@@ -525,12 +524,13 @@
                     "Cheltuieli cu alte impozite, taxe și vărsăminte asimilate"
                 ][year] || 0;
 
-
             let profitNet =
                 +profitLossData["Profit net al exercițiului financiar"][year] ||
                 0;
             let pierdereNeta =
-                +profitLossData["Pierdere netă al exercițiului financiar"][year] || 0;
+                +profitLossData["Pierdere netă al exercițiului financiar"][
+                    year
+                ] || 0;
             let profitFinanciar =
                 +profitLossData["Profit financiar"][year] || 0;
             let pierdereFinanciara =
@@ -544,7 +544,7 @@
                 +profitLossData["Pierdere din exploatare"][year] || 0;
             let CA = +profitLossData["Cifra de afaceri netă"][year] || 0;
 
-            // 🔹 Calculați componentele derivate
+            // Calculați componentele derivate
             const totalAct = totalActive(ai, ac, chAv);
             const datoriiTot = datoriiTotale(datoriiLungi, datoriiCurente);
             const totalPas = totalPasiv(
@@ -584,8 +584,14 @@
             indicatori.valoareAdaugata[year] = VA_;
             indicatori.execedentBrutExploatare[year] = EBE_;
 
-            indicatori.rataRentabilitatiiEconomice[year] = ROA(profitNet, totalAct);
-            indicatori.rataRentabilitatiiFinanciare[year] = ROE(profitNet, capitaluriProprii);
+            indicatori.rataRentabilitatiiEconomice[year] = ROA(
+                profitNet,
+                totalAct,
+            );
+            indicatori.rataRentabilitatiiFinanciare[year] = ROE(
+                profitNet,
+                capitaluriProprii,
+            );
             indicatori.rataRentabilitateResurseConsumate[year] =
                 rataRentabilitateResurseConsumate(profitExploatare, CA);
             indicatori.rataActiveImobilizate[year] = rataActiveImobilizate(
@@ -656,7 +662,7 @@
         }
 
         console.log("Indicatori calculați:", indicatori);
-        return true; // ✅ All good
+        return true; // All good
     }
 
     let indicatori = {
@@ -692,7 +698,7 @@
         profitBrut: {},
         pierdereBruta: {},
         profitNet: {},
-        pierdereNeta: {}
+        pierdereNeta: {},
     };
 
     // Cifra de afacere
@@ -746,10 +752,10 @@
             }
         }
 
-// Get user details first
-const user = await getUserDetails();
+        // Get user details first
+        const user = await getUserDetails();
         if (!user) {
-            console.error("❌ Nu s-au putut obține detaliile utilizatorului.");
+            console.error("Nu s-au putut obține detaliile utilizatorului.");
             return;
         }
 
@@ -812,7 +818,7 @@ const user = await getUserDetails();
         const email = getCookie("userEmail");
 
         if (!email) {
-            console.error("❌ Email not found in cookies.");
+            console.error("Email not found in cookies.");
             return null;
         }
 
@@ -837,17 +843,17 @@ const user = await getUserDetails();
                 result.data.length > 0
             ) {
                 const user = result.data[0];
-                console.log("📄 Detalii utilizator:", user);
+                console.log("Detalii utilizator:", user);
                 return user;
             } else {
                 console.error(
-                    "❌ Utilizatorul nu a fost găsit:",
+                    "Utilizatorul nu a fost găsit:",
                     result.message,
                 );
                 return null;
             }
         } catch (err) {
-            console.error("❌ Eroare la interogarea utilizatorului:", err);
+            console.error("Eroare la interogarea utilizatorului:", err);
             return null;
         }
     }
